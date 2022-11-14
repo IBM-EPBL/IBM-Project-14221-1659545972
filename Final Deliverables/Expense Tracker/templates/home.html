@@ -4,9 +4,434 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/5b1503190b.js" crossorigin="anonymous"></script>
     <title>Document</title>
+
 </head>
+<style>
+   *{
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        box-sizing: border-box;
+
+    }
+ 
+    nav{
+        position: absolute;
+        top:0;
+        bottom:0;
+        height: 100%;
+        left: 0;
+        background: #fff;
+        width: 90px;
+        overflow: hidden;
+        transition: width 0.2s linear;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+
+    }
+    .logo{
+ text-align: center;
+ display: flex;
+ transition: all 0.5s ease;
+margin: 10px 0 0 10px;
+    }
+    .logo img{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+    .logo span{
+        font-weight: bold;
+        padding-left: 15px;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+    a{
+        position: relative;
+        color: black;
+        font-size: 14px;
+        display: table;
+        width: 300px;
+        padding: 10px;
+    }
+    .fas{
+        position: relative;
+        width: 70px;
+        height: 40px;
+        top:14px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .nav-item{
+        position: relative;
+        top:12px;
+        margin-left: 10px;
+    }
+    a:hover{
+        background: #eee;
+    }
+    nav:hover{
+        width: 280px;
+        transition: all 0.5s ease;
+    }
+    .logout{
+        position: absolute;
+        bottom: 0;
+
+    }
+    @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
+
+:root {
+  --main-color: #13168d;
+  --secondary-color: #393a57;
+  --ternary-color: #486ba6;
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --background-color: #e5e6ed;
+  --background-secondary-color: #fff;
+  --border-color: #80717f;
+  --border-secondary-color: #bcc0cb;
+  --plus-color: #2ecc71;
+  --minus-color: #c0392b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #C6FFDD;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  color: var(--secondary-color);
+  font-family: "Noto Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header img {
+  width: 4.5rem;
+  width: 4.5rem;
+  opacity: 0.5;
+}
+
+.balance-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  margin: 30px auto;
+  width: 350px;
+}
+
+h1 {
+  font-size: 1.25rem;
+}
+
+h2 {
+  font-size: 1.17rem;
+}
+
+.balance {
+  letter-spacing: 1px;
+  margin: 0;
+  font-size: 2rem;
+}
+
+h3 {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin: 40px 0 10px;
+}
+
+h2,
+h4 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.inc-exp-container {
+  background-color: var(--background-secondary-color);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.inc-exp-container > div {
+  flex: 1;
+  text-align: center;
+}
+
+.inc-exp-container > div:first-of-type {
+  border-right: 1px solid var(--border-secondary-color);
+}
+
+.money {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin: 5px 0;
+}
+
+.money.plus {
+  color: var(--plus-color);
+}
+
+.money.minus {
+  color: var(--minus-color);
+}
+
+label {
+  display: inline-block;
+  margin: 10px 0;
+}
+
+input[type="text"],
+input[type="number"] {
+  border: 1px solid var(--border-secondary-color);
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+#category{
+    border: 1px solid var(--border-secondary-color);
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+.btn {
+  cursor: pointer;
+  background-color: var(--main-color);
+  box-shadow: var(--box-shadow);
+  color: var(--background-secondary-color);
+  border: 0;
+  display: block;
+  font-size: 16px;
+  margin: 10px 0 30px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.list li {
+  background-color: var(--background-secondary-color);
+  box-shadow: var(--box-shadow);
+  color: var(--ternary-color);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 10px;
+  margin: 10px 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.list li.plus {
+  border-left: 5px solid var(--plus-color);
+}
+
+.list li.minus {
+  border-left: 5px solid var(--minus-color);
+}
+
+.delete-btn {
+  cursor: pointer;
+  background-color: var(--minus-color);
+  color: var(--background-secondary-color);
+  box-shadow: var(--box-shadow);
+  border: 0;
+  font-size: 22px;
+  line-height: 22px;
+  padding: 10px;
+  margin: 10px 0;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(100%, -73%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:focus,
+.delete-btn:focus {
+  outline: 0;
+}
+
+.list li:hover .delete-btn {
+  opacity: 1;
+}
+
+.notification-container {
+  background-color: var(--minus-color);
+  color: var(--background-secondary-color);
+  border-radius: 5px 5px 0 0;
+  padding: 15px 20px;
+  position: fixed;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.notification-container.show {
+  opacity: 1;
+}
+
+.notification-container p {
+  margin: 0;
+}
+
+    .card {
+      background-color: #dfe9f5;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+
+}
+
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.container {
+  padding: 2px 16px;
+}
+
+</style>
+<script>
+  function addGroup(e) {
+      // e.preventDefault();
+      group = window.prompt('Enter group name: ')
+      console.log('PROMPT WINDOW SHOWN'+group);
+
+      const formData = new FormData();
+      formData.append("groupname", group);
+
+      const xhttp = new XMLHttpRequest();
+      xhttp.onload = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              var groupid= JSON.parse(this.responseText);
+              console.log(groupid);
+              // create option using DOM
+              const newOption = document.createElement('option');
+              const optionText = document.createTextNode(groupid['groupname']);
+              newOption.appendChild(optionText);
+              newOption.setAttribute('value',groupid['groupID']); 
+              const selectDropdown = document.getElementById('group');
+              selectDropdown.appendChild(newOption);
+              console.log('GROUPID :'+ groupid['groupID']);
+          }
+      }
+      xhttp.open("POST", "http://localhost:5000/addgroup");
+      xhttp.send(formData);
+  }
+</script>
 <body>
-    Home page
+  <nav>
+    <ul>
+        <li>
+           <a class="logo" href="#">
+            <img src="main_logo.png" alt="">
+            <span class="nav-item"> Expense Tracker</span>
+           </a> 
+        </li>
+        <li><a href="dashboard.html">
+            <i class="fas fa-home"></i>
+     <span class="nav-item">Home</span>
+        </a></li>
+        <li><a href="addexpense.html">
+            <i class="fas fa-user"></i>
+     <span class="nav-item">Profile</span>
+        </a></li>
+        <li><a href="modifyexpense.html">
+            <i class="fas fa-wallet"></i>
+     <span class="nav-item">Wallet</span>
+        </a></li>
+        <li><a href="analysis.html" >
+            <i class="fas fa-chart-bar"></i>
+     <span class="nav-item">Analytics</span>
+        </a></li>
+        <li><a href="rewards.html">
+            <i class="fas fa-tasks"></i>
+     <span class="nav-item">Tasks</span>
+        </a></li>
+    </a></li>
+    <li><a class="logout" href="">
+        <i class="fas fa-sign-out-alt"></i>
+ <span class="nav-item">Logout</span>
+    </a></li>
+    </ul>
+</nav>
+    <div class="container card">
+      <div class="header">
+      
+        
+      </div>
+    
+   
+      <h3>Add new transaction</h3>
+      <form action="/addexpense" method="POST" id="form">
+        <div class="form-control">
+          <label for="description">Description</label>
+          <input type="text" id="description" placeholder="Enter description..." />
+        </div>
+        <div class="form-control">
+          <label for="amount"
+            >Amount <br />
+            <small>(-100 = expense, 100 = income)</small></label
+          >
+          <input type="number" id="amount" placeholder="Enter amount..." />
+        </div>
+        <div class="form-control">
+          <label for="amount"
+            >Date Of expense <br />
+            </label
+          ><br/>
+          <input style="font-size: 1.7rem;
+   
+          " type="date" id="amount" placeholder="Enter amount..." />
+        </div>
+        <div class="form-control">
+            <label for="text">Description</label>
+            <select name="category" id="category" class="form-control" placeholder="Select a category">
+                <option value="">Select a category</option>
+                {% for cat in categories %}
+                    <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+                 {% endfor %}
+                  </select>
+          </div>
+        <button type="submit" value="submit"  class="btn">Add transaction</button>
+      </form>
+    </div>
+    <!-- Notification -->
+    <div class="notification-container" id="notification">
+      <p>Please add a description and amount</p>
+    </div>
 </body>
 </html>
