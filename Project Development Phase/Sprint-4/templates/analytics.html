@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="https://kit.fontawesome.com/5b1503190b.js" crossorigin="anonymous"></script>
+    <title>Home</title>
+</head>
+<script>
+    google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawCharts);
+function drawCharts() {
+  
+  // BEGIN BAR CHART
+  /*
+  // create zero data so the bars will 'grow'
+  var barZeroData = google.visualization.arrayToDataTable([
+    ['Day', 'Page Views', 'Unique Views'],
+    ['Sun',  0,      0],
+    ['Mon',  0,      0],
+    ['Tue',  0,      0],
+    ['Wed',  0,      0],
+    ['Thu',  0,      0],
+    ['Fri',  0,      0],
+    ['Sat',  0,      0]
+  ]);
+	*/
+  // actual bar chart data
+  var barData = google.visualization.arrayToDataTable([
+    ['Day', 'Debit', 'Credit'],
+    ['Sun',  1050,      600],
+    ['Mon',  1370,      910],
+    ['Tue',  660,       200],
+    ['Wed',  1030,      240],
+    ['Thu',  1000,      280],
+    ['Fri',  1170,      160],
+    ['Sat',  660,       120]
+  ]);
+  // set bar chart options
+  var barOptions = {
+    focusTarget: 'category',
+    backgroundColor: 'transparent',
+    colors: ['cornflowerblue', 'tomato'],
+    fontName: 'Open Sans',
+    chartArea: {
+      left: 50,
+      top: 10,
+      width: '100%',
+      height: '70%'
+    },
+    bar: {
+      groupWidth: '80%'
+    },
+    hAxis: {
+      textStyle: {
+        fontSize: 11
+      }
+    },
+    vAxis: {
+      minValue: 0,
+      maxValue: 1500,
+      baselineColor: '#DDD',
+      gridlines: {
+        color: '#DDD',
+        count: 4
+      },
+      textStyle: {
+        fontSize: 11
+      }
+    },
+    legend: {
+      position: 'bottom',
+      textStyle: {
+        fontSize: 12
+      }
+    },
+    animation: {
+      duration: 1200,
+      easing: 'out',
+			startup: true
+    }
+  };
+  // draw bar chart twice so it animates
+  var barChart = new google.visualization.ColumnChart(document.getElementById('bar-chart'));
+  //barChart.draw(barZeroData, barOptions);
+  barChart.draw(barData, barOptions);
+  
+  // BEGIN LINE GRAPH
+  
+  function randomNumber(base, step) {
+    return Math.floor((Math.random()*step)+base);
+  }
+  function createData(year, start1, start2, step, offset) {
+    var ar = [];
+    for (var i = 0; i < 12; i++) {
+      ar.push([new Date(year, i), randomNumber(start1, step)+offset, randomNumber(start2, step)+offset]);
+    }
+    return ar;
+  }
+  var randomLineData = [
+    ['Year', 'Page Views', 'Unique Views']
+  ];
+  for (var x = 0; x < 7; x++) {
+    var newYear = createData(2007+x, 10000, 5000, 4000, 800*Math.pow(x,2));
+    for (var n = 0; n < 12; n++) {
+      randomLineData.push(newYear.shift());
+    }
+  }
+  var lineData = google.visualization.arrayToDataTable(randomLineData);
+  
+	/*
+  var animLineData = [
+    ['Year', 'Page Views', 'Unique Views']
+  ];
+  for (var x = 0; x < 7; x++) {
+    var zeroYear = createData(2007+x, 0, 0, 0, 0);
+    for (var n = 0; n < 12; n++) {
+      animLineData.push(zeroYear.shift());
+    }
+  }
+  var zeroLineData = google.visualization.arrayToDataTable(animLineData);
+	*/
+
+  var lineOptions = {
+    backgroundColor: 'transparent',
+    colors: ['cornflowerblue', 'tomato'],
+    fontName: 'Open Sans',
+    focusTarget: 'category',
+    chartArea: {
+      left: 50,
+      top: 10,
+      width: '100%',
+      height: '70%'
+    },
+    hAxis: {
+      //showTextEvery: 12,
+      textStyle: {
+        fontSize: 11
+      },
+      baselineColor: 'transparent',
+      gridlines: {
+        color: 'transparent'
+      }
+    },
+    vAxis: {
+      minValue: 0,
+      maxValue: 50000,
+      baselineColor: '#DDD',
+      gridlines: {
+        color: '#DDD',
+        count: 4
+      },
+      textStyle: {
+        fontSize: 11
+      }
+    },
+    legend: {
+      position: 'bottom',
+      textStyle: {
+        fontSize: 12
+      }
+    },
+    animation: {
+      duration: 1200,
+      easing: 'out',
+			startup: true
+    }
+  };
+
+  var lineChart = new google.visualization.LineChart(document.getElementById('line-chart'));
+  //lineChart.draw(zeroLineData, lineOptions);
+  lineChart.draw(lineData, lineOptions);
+  
+  // BEGIN PIE CHART
+  
+  // pie chart data
+  var pieData = google.visualization.arrayToDataTable([
+    ['Expense', 'Weekly Average Expense'],
+    ['EMI & Rent ',      7242],
+    ['Travel',   4563],
+    ['Food',   1345],
+    ['Entertaiment',    946],
+    ['Shopping',  2150]
+  ]);
+  // pie chart options
+  var pieOptions = {
+    backgroundColor: 'transparent',
+    pieHole: 0.4,
+    colors: [ "cornflowerblue", 
+              "olivedrab", 
+              "orange", 
+              "tomato", 
+              "crimson", 
+              "purple", 
+              "turquoise", 
+              "forestgreen", 
+              "navy", 
+              "gray"],
+    pieSliceText: 'value',
+    tooltip: {
+      text: 'percentage'
+    },
+    fontName: 'Open Sans',
+    chartArea: {
+      width: '100%',
+      height: '94%'
+    },
+    legend: {
+      textStyle: {
+        fontSize: 13
+      }
+    }
+  };
+  // draw pie chart
+  var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
+  pieChart.draw(pieData, pieOptions);
+}
+</script>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body {
+  font-family: "Open Sans", Arial;
+  background: #EDEDED;
+}
+main {
+  width: 520px;
+  margin: 10px auto;
+  padding: 10px 20px 30px;
+  background: #FFF;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+p {
+  margin-top: 2rem;
+  font-size: 13px;
+}
+#bar-chart {
+  width: 500px;
+  height: 300px;
+  position: relative;
+}
+#line-chart {
+  width: 500px;
+  height: 300px;
+  position: relative;
+}
+#bar-chart::before, #line-chart::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 240px;
+  height: 30px;
+  left: 155px;
+  top: 254px;
+  background: #FAFAFA;
+  box-shadow: 1px 1px 0 0 #DDD;
+}
+#pie-chart {
+  width: 500px;
+  height: 250px;
+  position: relative;
+}
+#pie-chart::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 115px;
+  left: 315px;
+  top: 0;
+  background: #FAFAFA;
+  box-shadow: 1px 1px 0 0 #DDD;
+}
+#pie-chart::after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 260px;
+  left: 70px;
+  width: 170px;
+  height: 2px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  box-shadow: 0 0 3px 4px rgba(0,0,0,0.1);
+}
+*{
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        box-sizing: border-box;
+
+    }
+ 
+    nav{
+        position: absolute;
+        top:0;
+        bottom:0;
+        height: 100%;
+        left: 0;
+        background: #fff;
+        width: 90px;
+        overflow: hidden;
+        transition: width 0.2s linear;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+
+    }
+    .logo{
+ text-align: center;
+ display: flex;
+ transition: all 0.5s ease;
+margin: 10px 0 0 10px;
+    }
+    .logo img{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+    .logo span{
+        font-weight: bold;
+        padding-left: 15px;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+    a{
+        position: relative;
+        color: black;
+        font-size: 14px;
+        display: table;
+        width: 300px;
+        padding: 10px;
+    }
+    .fas{
+        position: relative;
+        width: 70px;
+        height: 40px;
+        top:14px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .nav-item{
+        position: relative;
+        top:12px;
+        margin-left: 10px;
+    }
+    a:hover{
+        background: #eee;
+    }
+    nav:hover{
+        width: 280px;
+        transition: all 0.5s ease;
+    }
+    .logout{
+        position: absolute;
+        bottom: 0;
+
+    }
+</style>
+<body>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <nav>
+      <ul>
+          <li>
+             <a class="logo" href="{{ url_for('home') }}">
+              <img src="../static/images/main_logo.png" alt="">
+              <span class="nav-item"> Expense Tracker</span>
+             </a> 
+          </li>
+          <li><a href="{{ url_for('home') }}">
+              <i class="fas fa-home"></i>
+       <span class="nav-item">Home</span>
+          </a></li>
+          <li><a href="{{ url_for('profile') }}">
+              <i class="fas fa-user"></i>
+       <span class="nav-item">Profile</span>
+          </a></li>
+         
+          <li><a href="{{ url_for('analytics') }}" >
+              <i class="fas fa-chart-bar"></i>
+       <span class="nav-item">Analytics</span>
+          </a></li>
+         
+      </a></li>
+      <li><a class="logout" href="{{ url_for('logout') }}">
+          <i class="fas fa-sign-out-alt"></i>
+   <span class="nav-item">Logout</span>
+      </a></li>
+      </ul>
+  </nav>
+<main>
+  <h2>Expense Analytics</h2>
+  <h5>Average Expenses </h5>
+  <div id="bar-chart"></div>
+
+  <div style="display: none;" id="line-chart"></div>
+  <h5>Page Hits per Country</h5>
+  <div id="pie-chart"></div>
+
+</main>
+</body>
+</html>

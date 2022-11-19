@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <script src="https://kit.fontawesome.com/5b1503190b.js" crossorigin="anonymous"></script>
+</head>
+<script>
+  const balance = document.getElementById("balance");
+const moneyPlus = document.getElementById("money-plus");
+const moneyMinus = document.getElementById("money-minus");
+const list = document.getElementById("list");
+const form = document.getElementById("form");
+const text = document.getElementById("text");
+const amount = document.getElementById("amount");
+const notification = document.getElementById("notification");
+
+const dummyTransactions = [
+  { id: 1, text: "Flower", amount: -20 },
+  { id: 2, text: "Salary", amount: 300 },
+  { id: 3, text: "Book", amount: -10 },
+  { id: 4, text: "Camera", amount: 150 },
+];
+
+let transactions = dummyTransactions;
+
+// LocalStorage is not enabled in CodePen for security reasons
+// const localStorageTransactions = JSON.parse(
+//   localStorage.getItem("transactions")
+// );
+// let transactions =
+//   localStorageTransactions !== null ? localStorageTransactions : [];
+
+// function updateLocaleStorage() {
+//   localStorage.setItem("transactions", JSON.stringify(transactions));
+// }
+
+function showNotification() {
+  notification.classList.add("show");
+  setTimeout(() => {
+    notification.classList.remove("show");
+  }, 2000);
+}
+
+function generateID() {
+  return Math.floor(Math.random() * 100000000);
+}
+
+function addTransaction(e) {
+  e.preventDefault();
+  if (text.value.trim() === "" || amount.value.trim() === "") {
+    showNotification();
+  } else {
+    const transaction = {
+      id: generateID(),
+      text: text.value,
+      amount: +amount.value,
+    };
+    transactions.push(transaction);
+    addTransactionDOM(transaction);
+    updateValues();
+    // updateLocaleStorage();
+    text.value = "";
+    amount.value = "";
+  }
+}
+
+function addTransactionDOM(transaction) {
+  const sign = transaction.amount < 0 ? "-" : "+";
+  const item = document.createElement("li");
+  item.classList.add(sign === "+" ? "plus" : "minus");
+  item.innerHTML = `
+          ${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span
+          ><button class="delete-btn" onclick="removeTransaction(${
+            transaction.id
+          })"><i class="fa fa-times"></i></button>
+    `;
+  list.appendChild(item);
+}
+
+function updateValues() {
+  const amounts = transactions.map((transaction) => transaction.amount);
+  const total = amounts
+    .reduce((accumulator, value) => (accumulator += value), 0)
+    .toFixed(2);
+  const income = amounts
+    .filter((value) => value > 0)
+    .reduce((accumulator, value) => (accumulator += value), 0)
+    .toFixed(2);
+  const expense = (
+    amounts
+      .filter((value) => value < 0)
+      .reduce((accumulator, value) => (accumulator += value), 0) * -1
+  ).toFixed(2);
+  balance.innerText = `$${total}`;
+  moneyPlus.innerText = `$${income}`;
+  moneyMinus.innerText = `$${expense}`;
+}
+
+function removeTransaction(id) {
+  transactions = transactions.filter((transaction) => transaction.id !== id);
+  // updateLocaleStorage();
+  init();
+}
+
+// Init
+function init() {
+  list.innerHTML = "";
+  transactions.forEach(addTransactionDOM);
+  updateValues();
+}
+
+init();
+
+form.addEventListener("submit", addTransaction);
+
+</script>
+<style>
+    
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  align-items: center;
+  justify-content: center;
+  background-color: #ADE5F9;
+  min-height: 100vh;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+ul {
+  list-style: none;
+}
+
+/* Utilities */
+.card::after,
+.card img {
+  border-radius: 50%;
+}
+body,
+.card,
+.stats {
+  display: flex;
+  
+}
+.stats{
+    display: inline-block;
+}
+
+.card {
+  padding: 2.5rem 2rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, .5);
+  max-width: 500px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, .15);
+  margin: 1rem;
+  position: relative;
+  background-color: white;
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+.card::before,
+.card::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+}
+.card::before {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #FFF;
+  border-radius: 10px;
+  top: -.7rem;
+  left: -.7rem;
+}
+.card::after {
+  height: 15rem;
+  width: 15rem;
+  background-color: #4172f5aa;
+  top: -8rem;
+  right: -8rem;
+  box-shadow: 2rem 6rem 0 -3rem #FFF
+}
+
+.card img {
+  width: 8rem;
+  min-width: 80px;
+  box-shadow: 0 0 0 5px #FFF;
+}
+
+.infos {
+  margin-left: 1.5rem;
+}
+
+.name {
+  margin-bottom: 1rem;
+}
+.name h2 {
+  font-size: 1.3rem;
+}
+.name h4 {
+  font-size: .8rem;
+  color: #333
+}
+
+.text {
+  font-size: .9rem;
+  margin-bottom: 1rem;
+}
+
+.stats {
+  margin-bottom: 1rem;
+}
+.stats li {
+  min-width: 5rem;
+}
+.stats li h3 {
+  font-size: .99rem;
+}
+.stats li h4 {
+  font-size: .75rem;
+}
+
+.links button {
+  font-family: 'Poppins', sans-serif;
+  min-width: 120px;
+  padding: .5rem;
+  border: 1px solid #222;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all .25s linear;
+}
+.links .follow,
+.links .view:hover {
+  background-color: #222;
+  color: #FFF;
+}
+.links .view,
+.links .follow:hover{
+  background-color: transparent;
+  color: #222;
+}
+
+@media screen and (max-width: 450px) {
+  .card {
+    display: block;
+  }
+  .infos {
+    margin-left: 0;
+    margin-top: 1.5rem;
+  }
+  .links button {
+    min-width: 100px;
+  }
+}
+*{
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        box-sizing: border-box;
+
+    }
+ 
+    nav{
+        position: absolute;
+        top:0;
+        bottom:0;
+        height: 100%;
+        left: 0;
+        background: #fff;
+        width: 90px;
+        overflow: hidden;
+        transition: width 0.2s linear;
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+
+    }
+    .logo{
+ text-align: center;
+ display: flex;
+ transition: all 0.5s ease;
+margin: 10px 0 0 10px;
+    }
+    .logo img{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+    .logo span{
+        font-weight: bold;
+        padding-left: 15px;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+    a{
+        position: relative;
+        color: black;
+        font-size: 14px;
+        display: table;
+        width: 300px;
+        padding: 10px;
+    }
+    .fas{
+        position: relative;
+        width: 70px;
+        height: 40px;
+        top:14px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .nav-item{
+        position: relative;
+        top:12px;
+        margin-left: 10px;
+    }
+    a:hover{
+        background: #eee;
+    }
+    nav:hover{
+        width: 280px;
+        transition: all 0.5s ease;
+    }
+    .logout{
+        position: absolute;
+        bottom: 0;
+
+    }
+    .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+</style>
+<script>
+  
+
+function newBudget() {
+  let person = prompt("Enter the new budget here", "Budget in ₹");
+  if (person != null) {
+    document.getElementById("demo").innerHTML =
+    "Hello " + person + "! How are you today?";
+  }
+}
+function newCategory() {
+  let person = prompt("Enter the new categery  here", "");
+  if (person != null) {
+    document.getElementById("demo").innerHTML =
+    "Hello " + person + "! How are you today?";
+  }
+}
+
+</script>
+<body
+style="background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+">
+<nav>
+  <ul>
+      <li>
+         <a class="logo" href="{{ url_for('home') }}">
+          <img src="../static/images/main_logo.png" alt="">
+          <span class="nav-item"> Expense Tracker</span>
+         </a> 
+      </li>
+      <li><a href="{{ url_for('home') }}">
+          <i class="fas fa-home"></i>
+   <span class="nav-item">Home</span>
+      </a></li>
+      <li><a href="{{ url_for('profile') }}">
+          <i class="fas fa-user"></i>
+   <span class="nav-item">Profile</span>
+      </a></li>
+     
+      <li><a href="{{ url_for('analytics') }}" >
+          <i class="fas fa-chart-bar"></i>
+   <span class="nav-item">Analytics</span>
+      </a></li>
+     
+  </a></li>
+  <li><a class="logout" href="{{ url_for('logout') }}">
+      <i class="fas fa-sign-out-alt"></i>
+<span class="nav-item">Logout</span>
+  </a></li>
+  </ul>
+</nav>
+    <div class="card">
+        <div class="img">
+          <img src="https://i.ibb.co/p1qcMVh/profile.png" >
+        </div>
+        <div class="infos">
+          <div class="name">
+            <h2>Obed Samueal</h2>
+            <h4>@obedsamueal@gmail.com</h4>
+          </div>
+        
+          <ul class="stats">
+          
+            <li>
+              <h3>Total Money Spent</h3>
+              <h4>₹7900</h4>
+            </li>
+            <li>
+              <h3>Current Budget</h3>
+              <h4>₹20000</h4>
+            </li>
+         
+          </ul>
+          <div class=" links grid-container">
+            <button onclick="newBudget()"" class="follow">Edit Budget</button>
+            <button onclick="newCategory()" class="follow grid-child">Add Expense Category</button>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
