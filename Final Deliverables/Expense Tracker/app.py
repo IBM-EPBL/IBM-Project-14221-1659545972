@@ -23,12 +23,10 @@ def register():
     name = request.form['name']
 
     if not email or not password or not name:
-      return render_template('register.html')
+      return render_template('register.html',error="enter all the details")
     
     hash = bcrypt.hashpw(password.encode('utf-8'),bcrypt.gensalt())
-
-    # hash = generate_password_hash(password)
-
+    
     query = "SELECT * FROM users WHERE email=?"
     stmt = ibm_db.prepare(conn, query)
     print(email)
@@ -83,6 +81,17 @@ def login():
 
     return render_template('login.html',name='Home')
 
+@app.route('/profile',methods=['GET','POST'])
+def profile():
+    if 'email' not in session:
+      return redirect(url_for('login'))
+    return render_template('userProfile.html')
+
+@app.route('/analytics',methods=['GET','POST'])
+def analytics():
+    if 'email' not in session:
+      return redirect(url_for('login'))
+    return render_template('analytics.html')
 
 @app.route('/logout')
 def logout():
